@@ -66,6 +66,7 @@ function Navigation() {
         <Stack.Screen name="otp" component={OTP} />
         <Stack.Screen name="newPassword" component={NewPassword} />
         <Stack.Screen name="changePassword" component={ChangePassword} />
+       
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -82,7 +83,7 @@ function MyTabs() {
         tabBarInactiveTintColor: "#fff",
         tabBarStyle: {
           backgroundColor: "#30AD4A",
-          height: 60,
+          height: 80,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           borderTopWidth: 0,

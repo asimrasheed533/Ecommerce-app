@@ -83,9 +83,9 @@ const Home = () => {
             />
             <Text className="text-2xl font-bold">Plants</Text>
           </View>
-          <View className="border border-gray-400 rounded-full p-1 flex items-center justify-center">
+          <Pressable className="border border-gray-400 rounded-full p-1 flex items-center justify-center">
             <Image source={require("../../assets/profile.png")} />
-          </View>
+          </Pressable>
         </View>
         {/* search and notification */}
         <View className="flex flex-row justify-between p-4 items-center">

@@ -16,7 +16,7 @@ const Profile = () => {
     <SafeAreaView className="bg-[#30AD4A] flex-1">
       <StatusBar style="light" />
       {/* Header */}
-      <View className="flex w-full top-4 flex-row justify-center items-center p-4 absolute z-10">
+      <View className="flex w-full top-14 flex-row justify-center items-center p-4 absolute z-10">
         <Pressable
           onPress={() => {
             navigation.goBack();
@@ -28,11 +28,6 @@ const Profile = () => {
         <Text className="text-2xl font-semibold text-white">Profile</Text>
       </View>
       <View className="h-[35%] w-full flex flex-col items-center justify-end">
-        <View className="h-32 w-32 bg-white rounded-full relative">
-          <Pressable className="absolute bottom-0 right-0 bg-black/30 p-2 rounded-full">
-            <Icon.Camera color={"white"} />
-          </Pressable>
-        </View>
         <View className="my-2">
           <Text className="text-2xl text-center font-semibold text-white ">
             John Doe
@@ -45,28 +40,20 @@ const Profile = () => {
           <View className="bg-gray-100 rounded-2xl">
             <View className="flex flex-row justify-between items-center p-4 border-b-2 border-gray-300">
               <Text className="font-semibold">Email</Text>
-              <Text>abc@gmail.com</Text>
-            </View>
-            <View className="flex flex-row justify-between items-center p-4 border-b-2 border-gray-300">
-              <Text className="font-semibold">Date of Birth</Text>
-              <Text>abc@gmail.com</Text>
-            </View>
-            <View className="flex flex-row justify-between items-center p-4 border-b-2 border-gray-300">
-              <Text className="font-semibold">Gender</Text>
-              <Text>abc@gmail.com</Text>
+              <Text>ali@gmail.com</Text>
             </View>
             <View className="flex flex-row justify-between items-center p-4">
               <Text className="font-semibold">Phone</Text>
-              <Text>abc@gmail.com</Text>
+              <Text>+92-3004575442</Text>
             </View>
           </View>
           <View className="bg-gray-100 rounded-2xl ">
-            <View className="flex flex-row gap-4 items-center p-4">
+            {/* <View className="flex flex-row gap-4 items-center p-4">
               <View>
                 <Icon.Lock color={"#30AD4A"} />
               </View>
               <Text className="font-semibold">Change Password</Text>
-            </View>
+            </View> */}
           </View>
           <Pressable onPress={logout} className="bg-gray-100 rounded-2xl ">
             <View className="flex flex-row gap-4 items-center p-4">
