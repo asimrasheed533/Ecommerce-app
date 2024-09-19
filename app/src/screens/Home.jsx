@@ -26,7 +26,7 @@ const Home = () => {
     setLikedItems(newLikedItems);
   };
   const { data: products } = useQuery("/products");
-
+  // console.log("products", products);
   const categories = [
     {
       name: "Green Plants",
@@ -190,40 +190,42 @@ const Home = () => {
         </ScrollView>
         {/* plant cards */}
         <View className="px-4 flex flex-row flex-wrap gap-4 pb-20">
-          {products?.map((card, index) => (
-            <Pressable
-              key={card.id}
-              onPress={() =>
-                navigation.navigate("productDetails", { state: card })
-              }
-              className="bg-[#F8F8F8] rounded-lg w-[45%] relative"
-            >
+          {products
+            ?.filter((card) => card.type === "featured")
+            ?.map((card, index) => (
               <Pressable
-                onPress={() => handleLikeToggle(index)}
-                className="absolute right-2 top-2"
+                key={card.id}
+                onPress={() =>
+                  navigation.navigate("productDetails", { state: card })
+                }
+                className="bg-[#F8F8F8] rounded-lg w-[45%] relative"
               >
-                <Icon.Heart
-                  color="#30AD4A"
-                  fill={likedItems[index] ? "#30AD4A" : "none"}
-                />
-              </Pressable>
-              <View className="flex justify-center items-center py-4">
-                <Image
-                  source={{ uri: card.img }}
-                  style={{ width: 100, height: 100 }}
-                />
-              </View>
-              <LinearGradient
-                colors={["#C9EDE0", "#ffffff"]}
-                className="rounded-lg h-10 flex flex-col justify-center items-center "
-              >
-                <Text className="font-bold">{card.title}</Text>
-                <View className="flex flex-row">
-                  <Text className="font-bold text-xs">${card.price}</Text>
+                <Pressable
+                  onPress={() => handleLikeToggle(index)}
+                  className="absolute right-2 top-2"
+                >
+                  <Icon.Heart
+                    color="#30AD4A"
+                    fill={likedItems[index] ? "#30AD4A" : "none"}
+                  />
+                </Pressable>
+                <View className="flex justify-center items-center py-4">
+                  <Image
+                    source={{ uri: card.img }}
+                    style={{ width: 100, height: 100 }}
+                  />
                 </View>
-              </LinearGradient>
-            </Pressable>
-          ))}
+                <LinearGradient
+                  colors={["#C9EDE0", "#ffffff"]}
+                  className="rounded-lg h-10 flex flex-col justify-center items-center "
+                >
+                  <Text className="font-bold">{card.title}</Text>
+                  <View className="flex flex-row">
+                    <Text className="font-bold text-xs">${card.price}</Text>
+                  </View>
+                </LinearGradient>
+              </Pressable>
+            ))}
         </View>
       </ScrollView>
     </SafeAreaView>
