@@ -1,0 +1,22 @@
+{
+  "name": "book-store",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "start": "npx tsx index.ts",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "pull": "prisma db pull",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.12.2",
+    "@prisma/client": "^5.19.0",
+    "hono": "^4.5.9"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "prisma": "^5.19.0",
+    "tsx": "^4.7.1"
+  }
+}

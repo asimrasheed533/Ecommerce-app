@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ProductType {
+  product
+  featured
+  latest
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String?
+  img       String?   @db.MediumText // Specifies MEDIUMTEXT type in MySQL
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+}
+
+model Product {
+  id    String  @id @default(cuid())
+  title String?
+
+  brand       String?
+  price       Float       @default(0)
+  img         String?     @db.MediumText // Specifies MEDIUMTEXT type in MySQL
+  stock       Int         @default(0)
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  description String?     @db.MediumText
+  isFeatured  Boolean?
+  isActive    Boolean     @default(true)
+  type        ProductType @default(product)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  Order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
+}
+
+model Order {
+  id        String    @id @default(cuid())
+  firstName String?
+  lastName  String?
+  cityTown  String?
+  number    String?
+  email     String?
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
