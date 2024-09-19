@@ -31,7 +31,7 @@ products.post("/add", async (c) => {
   try {
     const {
       title,
-    
+      author,
       img,
       stock,
       category,
@@ -42,26 +42,16 @@ products.post("/add", async (c) => {
       type,
     } = await c.req.json();
 
-    console.log({     title,
-     
-      stock,
-      category,
-      description,
-      isFeatured,
-      isActive,
-      price,
-      type,})
-
     const newProduct = await prisma.product.create({
       data: {
         title,
-        
+        author,
         img,
         stock,
-        category:{
-          connect:{
-            id:category
-          }
+        category: {
+          connect: {
+            id: category,
+          },
         },
         description,
         isFeatured,
@@ -83,7 +73,7 @@ products.put("/:id", async (c) => {
 
     const {
       title,
-      
+      author,
       img,
       stock,
       category,
@@ -94,23 +84,31 @@ products.put("/:id", async (c) => {
       type,
     } = await c.req.json();
 
+    // Build the data object dynamically
+    const data: any = {};
+
+    if (title !== undefined) data.title = title;
+    if (author !== undefined) data.author = author;
+    if (img !== undefined) data.img = img;
+    if (stock !== undefined) data.stock = stock;
+    if (description !== undefined) data.description = description;
+    if (isFeatured !== undefined) data.isFeatured = isFeatured;
+    if (isActive !== undefined) data.isActive = isActive;
+    if (price !== undefined) data.price = price;
+    if (type !== undefined) data.type = type;
+
+    // Handle the category connect conditionally
+    if (category !== undefined) {
+      data.category = {
+        connect: {
+          id: category,
+        },
+      };
+    }
+
     const updateProduct = await prisma.product.update({
       where: { id: id },
-      data: {
-        title,
-        img,
-        stock,
-        category:{
-          connect:{
-            id:category
-          }
-        },
-        description,
-        isFeatured,
-        isActive,
-        price,
-        type,
-      },
+      data: data,
     });
 
     return c.json(updateProduct);
