@@ -91,7 +91,7 @@ const CartScreen = () => {
         </Pressable>
       </View>
       <ScrollView className="py-4 flex-1 ">
-        {cart.map((item, index) => {
+        {cart?.map((item, index) => {
           return (
             <CartItem key={index} item={item} cart={cart} setCart={setCart} />
           );
@@ -206,7 +206,7 @@ function CartItem({ item, cart, setCart }) {
       <View className="bg-[#F8F8F8] rounded-lg flex-1 mx-2 h-full flex justify-center items-center">
         <Image
           className="h-20"
-          source={item.image}
+          source={{ uri: item.img }}
           style={{
             width: "100%",
             resizeMode: "contain",

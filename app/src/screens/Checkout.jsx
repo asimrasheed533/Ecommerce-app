@@ -210,7 +210,8 @@ const Checkout = () => {
             <View className="flex-col">
               <View className="flex-row justify-between my-2">
                 <Text className="font-bold">Amound Paid :</Text>
-                <Text>$41.99</Text>
+
+                <Text>${subTotal.toFixed(2)}</Text>
               </View>
               <View className="flex-row justify-between">
                 <Text className="font-bold">Paid By :</Text>
@@ -224,11 +225,11 @@ const Checkout = () => {
         <View className="p-4 border-y-2 border-gray-200">
           <View className="flex-row justify-between">
             <Text className="font-medium text-lg">Item Total</Text>
-            <Text className="font-medium text-lg">2.99</Text>
+            <Text className="font-medium text-lg">${subTotal.toFixed(2)}</Text>
           </View>
           <View className="flex-row justify-between">
             <Text className="font-medium text-lg">Delivery Charge</Text>
-            <Text className="font-medium text-lg">47.49</Text>
+            <Text className="font-medium text-lg">{deliveryCharge}</Text>
           </View>
         </View>
       ) : null}
@@ -256,8 +257,8 @@ const Checkout = () => {
               {step === 1
                 ? "Make Payment"
                 : step === 2
-                ? "Pay Now"
-                : "Back to Home"}
+                  ? "Pay Now"
+                  : "Back to Home"}
             </Text>
           </Pressable>
         </View>
@@ -274,7 +275,7 @@ function CartItem({ item, cart, setCart }) {
       <View className="bg-[#F8F8F8] rounded-lg w-36 h-full flex justify-center items-center">
         <Image
           className="h-20"
-          source={item.image}
+          source={{ uri: item.img }}
           style={{
             width: "100%",
             resizeMode: "contain",

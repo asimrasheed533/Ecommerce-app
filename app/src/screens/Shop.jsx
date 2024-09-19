@@ -12,42 +12,12 @@ import * as Icon from "react-native-feather";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import useQuery from "../utils/useQuery";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const cardData = [
-    {
-      id: 1,
-      name: "Snake Plant",
-      price: 13.99,
-      image: require("../../assets/plantCard1.png"),
-      rating: 4.5,
-      reviwes: 178,
-      description:
-        "Snake plants are native to tropical West Africa, where they grow in dry conditions. They’re often grown as houseplants, but these plants can thrive outdoors in U.S. Department of Agriculture plant hardiness zones 9 to 11. Snake plants are also known as mother-in-law’s tongue and Sansevieria.",
-    },
-    {
-      id: 2,
-      name: "Bamboo Plant",
-      price: 12.99,
-      image: require("../../assets/bamboo.png"),
-      rating: 4.4,
-      reviwes: 200,
-      description:
-        "Bamboo plants are a great way to add a natural element to your home or office. They are easy to care for and can be grown indoors or outdoors. Bamboo plants are also known for their ability to purify the air, making them a great choice for anyone looking to improve the air quality in their home or office.",
-    },
-    {
-      id: 3,
-      name: "Money Plant",
-      price: 13.99,
-      image: require("../../assets/money.png"),
-      rating: 4.6,
-      reviwes: 150,
-      description:
-        "Money plants are a popular choice for indoor gardens because they are easy to care for and can thrive in a variety of conditions. They are also known for their ability to purify the air, making them a great choice for anyone looking to improve the air quality in their home or office.",
-    },
-  ];
+  const { data: products } = useQuery("/products");
   const categories = ["All", "Outdoor", "Indoor", "Office", "Home"];
   const navigation = useNavigation();
   return (
@@ -123,52 +93,35 @@ const Shop = () => {
         </ScrollView>
         {/* cards */}
         <View className="px-4 flex flex-row flex-wrap gap-4 pb-20">
-          {cardData.map((card, index) => {
-            const [isLiked, setIsLiked] = useState(false);
-            return (
+          {products?.map((card, index) => (
+            <Pressable
+              key={card.id}
+              onPress={() =>
+                navigation.navigate("productDetails", { state: card })
+              }
+              className="bg-[#F8F8F8] rounded-lg w-[45%] relative"
+            >
               <Pressable
-                key={card.name}
-                onPress={() =>
-                  navigation.navigate("productDetails", { state: card })
-                }
-                className="bg-[#F8F8F8] rounded-lg w-[45%] relative"
+                onPress={() => handleLikeToggle(index)}
+                className="absolute right-2 top-2"
+              ></Pressable>
+              <View className="flex justify-center items-center py-4">
+                <Image
+                  source={{ uri: card.img }}
+                  style={{ width: 100, height: 100 }}
+                />
+              </View>
+              <LinearGradient
+                colors={["#C9EDE0", "#ffffff"]}
+                className="rounded-lg h-10 flex flex-col justify-center items-center "
               >
-                <Pressable
-                  onPress={() => {
-                    setIsLiked(!isLiked);
-                  }}
-                >
-                  <Icon.Heart
-                    color="#30AD4A"
-                    className="right-2 top-2 absolute"
-                    fill={isLiked ? "#30AD4A" : "none"}
-                  />
-                </Pressable>
-                <View className=" flex justify-center items-center py-4">
-                  <Image source={card.image} />
+                <Text className="font-bold">{card.title}</Text>
+                <View className="flex flex-row">
+                  <Text className="font-bold text-xs">${card.price}</Text>
                 </View>
-                <LinearGradient
-                  colors={["#C9EDE0", "#ffffff"]}
-                  className="rounded-lg h-10 flex flex-col justify-center items-center "
-                >
-                  <Text className="font-bold">{card.name}</Text>
-                  <View className="flex flex-row">
-                    <Text className="font-bold text-xs">
-                      ${card.price.toFixed(2).split(".")[0]}.
-                    </Text>
-                    <Text
-                      className="font-bold text-[8px]"
-                      style={{
-                        lineHeight: 10,
-                      }}
-                    >
-                      {card.price.toFixed(2).split(".")[1]}
-                    </Text>
-                  </View>
-                </LinearGradient>
-              </Pressable>
-            );
-          })}
+              </LinearGradient>
+            </Pressable>
+          ))}
         </View>
       </View>
     </SafeAreaView>

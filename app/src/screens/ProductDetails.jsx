@@ -41,18 +41,18 @@ const ProductDetails = () => {
       <View>
         <Image
           className="h-64"
-          source={state.image}
+          source={{ uri: state.img }}
           style={{
             width: "100%",
             resizeMode: "contain",
           }}
         />
       </View>
-      <PlantSizeSelector />
-      <View className=" bg-[#fafafa] p-4 mt-4 flex-1 flex flex-col justify-between">
+      {/* <PlantSizeSelector /> */}
+      <View className=" bg-[#fafafa] p-4 mt-4 flex flex-col justify-between">
         <View className="flex flex-row justify-between ">
           <View>
-            <Text className="text-2xl font-bold">{state.name}</Text>
+            <Text className="text-2xl font-bold">{state.title}</Text>
             <Text className="text-2xl font-bold text-[#30AD4A]">
               ${state.price}
             </Text>
@@ -60,10 +60,10 @@ const ProductDetails = () => {
           <View className="flex flex-row items-center">
             <Icon.Star color={"#FFC107"} fill={"#FFC107"} />
             <Text className="text-lg font-semibold mr-2">{state.rating}</Text>
-            <Text>({state.reviwes} Reviews)</Text>
+            <Text>({state.reviews} Reviews)</Text>
           </View>
         </View>
-        <View className="my-2">
+        <View className="my-2 ">
           <Text className="tracking-wide">{state.description}</Text>
         </View>
         <View className="flex flex-row justify-between items-center mt-3">
