@@ -58,7 +58,7 @@ const Home = () => {
               }}
               source={require("../../assets/plant.png")}
             />
-            <Text className="text-2xl font-bold">Plants</Text>
+            <Text className="text-2xl font-bold">Ali Express</Text>
           </View>
           <Pressable className="border border-gray-400 rounded-full p-1 flex items-center justify-center">
             <Image source={require("../../assets/profile.png")} />
