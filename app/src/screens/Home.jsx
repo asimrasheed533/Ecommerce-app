@@ -26,21 +26,22 @@ const Home = () => {
     setLikedItems(newLikedItems);
   };
   const { data: products } = useQuery("/products");
+  const { data: categories } = useQuery("/categories");
   // console.log("products", products);
-  const categories = [
-    {
-      name: "Green Plants",
-      image: <GreenPlants height={50} width={50} />,
-    },
-    {
-      name: "Flowers",
-      image: <GreenPlants height={50} width={50} />,
-    },
-    {
-      name: "Indoor Plants",
-      image: <GreenPlants height={50} width={50} />,
-    },
-  ];
+  // const categories = [
+  //   {
+  //     name: "Green Plants",
+  //     image: <GreenPlants height={50} width={50} />,
+  //   },
+  //   {
+  //     name: "Flowers",
+  //     image: <GreenPlants height={50} width={50} />,
+  //   },
+  //   {
+  //     name: "Indoor Plants",
+  //     image: <GreenPlants height={50} width={50} />,
+  //   },
+  // ];
 
   const [cart, setCart] = useAtom(cartAtom);
   return (
@@ -51,13 +52,13 @@ const Home = () => {
         <View className="flex flex-row justify-between pt-8 px-4">
           <View className="flex flex-row gap-1 items-center">
             <Image
+              source={require("../../assets/e-logo.jpg")}
               style={{
                 width: 40,
                 height: 40,
-                resizeMode: "contain",
               }}
-              source={require("../../assets/plant.png")}
             />
+
             <Text className="text-2xl font-bold">Ali Express</Text>
           </View>
           <Pressable className="border border-gray-400 rounded-full p-1 flex items-center justify-center">
@@ -74,12 +75,12 @@ const Home = () => {
               className=" font-semibold ml-2 flex-1 py-4 "
             />
           </View>
-          <View className="w-12  flex justify-center items-center ">
+          {/* <View className="w-12  flex justify-center items-center ">
             <Icon.Bell color="#30AD4A" strokeWidth={2} />
-          </View>
+          </View> */}
         </View>
         {/* swiper */}
-        <View className="h-[25vh]">
+        <View className="h-[25vh] ">
           <Swiper
             showsPagination={true}
             activeDotStyle={{
@@ -105,7 +106,7 @@ const Home = () => {
                 </View>
                 <View className="w-1/2 relative">
                   <Image
-                    source={require("../../assets/pot.png")}
+                    source={require("../../assets/beauty.jpg")}
                     className="absolute right-0 top-0"
                     style={{
                       width: 140,
@@ -131,7 +132,7 @@ const Home = () => {
                 </View>
                 <View className="w-1/2 relative">
                   <Image
-                    source={require("../../assets/pot.png")}
+                    source={require("../../assets/pro-1.jpg")}
                     className="absolute right-0 top-0"
                     style={{
                       width: 140,
@@ -157,7 +158,7 @@ const Home = () => {
                 </View>
                 <View className="w-1/2 relative">
                   <Image
-                    source={require("../../assets/pot.png")}
+                    source={require("../../assets/med.jpg")}
                     className="absolute right-0 top-0"
                     style={{
                       width: 140,
@@ -171,24 +172,60 @@ const Home = () => {
           </Swiper>
         </View>
         {/* categories */}
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "500",
+            }}
+          >
+            Category
+          </Text>
+        </View>
         <ScrollView
           horizontal={true}
           className="px-4 mb-4 flex flex-row gap-4 w-full"
           showsHorizontalScrollIndicator={false}
         >
-          {categories.map((category, index) => {
+          {categories?.map((category, index) => {
             return (
               <View
                 key={category.name}
-                className="bg-[#F8F8F8] flex gap-2 p-4 rounded-lg items-center text-black w-[130px]  justify-center"
+                className="bg-[#F8F8F8] flex gap-2 rounded-lg items-center text-black w-[100px]  justify-center"
               >
-                {category.image}
+                <Image
+                  source={{ uri: category.img }}
+                  style={{ width: 60, height: 60, borderRadius: 90 }}
+                />
                 <Text>{category.name}</Text>
               </View>
             );
           })}
         </ScrollView>
         {/* plant cards */}
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            margin: 15,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "500",
+            }}
+          >
+            Best Sales
+          </Text>
+        </View>
         <View className="px-4 flex flex-row flex-wrap gap-4 pb-20">
           {products
             ?.filter((card) => card.type === "featured")

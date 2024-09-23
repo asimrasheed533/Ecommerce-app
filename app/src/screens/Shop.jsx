@@ -18,7 +18,15 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const { data: products } = useQuery("/products");
-  const categories = ["All", "Outdoor", "Indoor", "Office", "Home"];
+  const { data: categories } = useQuery("/categories");
+  // const categories = [
+  //   "cloths",
+  //   "toys",
+  //   "furniture",
+  //   "electronic",
+  //   "Books",
+  //   "mobile",
+  // ];
   const navigation = useNavigation();
   return (
     <SafeAreaView>
@@ -82,17 +90,15 @@ const Shop = () => {
           `}
             >
               <Text
-                className={`   ${
-                  selectedCategory === category ? " text-white " : " "
-                }`}
+                className={`${selectedCategory === category ? " text-white " : " "}`}
               >
-                {category}
+                {category.name}
               </Text>
             </Pressable>
           ))}
         </ScrollView>
         {/* cards */}
-        <View className="px-4 flex flex-row flex-wrap gap-4 pb-20">
+        <ScrollView className="px-4 flex flex-row flex-wrap gap-4 pb-20">
           {products?.map((card, index) => (
             <Pressable
               key={card.id}
@@ -122,7 +128,7 @@ const Shop = () => {
               </LinearGradient>
             </Pressable>
           ))}
-        </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
